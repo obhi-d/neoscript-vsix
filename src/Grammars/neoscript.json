@@ -1,39 +1,49 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"scopeName": "source.neoscript",
-	"name": "NeoScript",
-    "fileTypes": [ ".neoscript" ],
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "scopeName": "source.neoscript",
+    "name": "NeoScript",
+    "fileTypes": [
+        ".neoscript"
+    ],
     "foldingStartMarker": "\\{\\s*$",
     "foldingStopMarker": "^\\s*\\}",
     "repository": {
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.neoscript",
+                    "match": "\b(template|using|import)\b"
+                }
+            ]
+        },
         "comment": {
-			"patterns": [
-				{
-					"name": "comment.line.double-slash.neoscript",
-					"match": "(//).*$\n?",
-					"captures": {
-						"1": {
-							"name": "punctuation.definition.comment.lua"
-						}
-					}
-				},
-				{
-					"name": "comment.block.neoscript",
-					"begin": "/\\*",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.comment.neoscript"
-						}
-					},
-					"end": "\\*/",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.comment.neoscript"
-						}
-					}
-				}
-			]
-		},
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash.neoscript",
+                    "match": "(//).*$\n?",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.comment.lua"
+                        }
+                    }
+                },
+                {
+                    "name": "comment.block.neoscript",
+                    "begin": "/\\*",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.neoscript"
+                        }
+                    },
+                    "end": "\\*/",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.neoscript"
+                        }
+                    }
+                }
+            ]
+        },
         "doublequotestring": {
             "name": "string.quoted.double.neoscript",
             "begin": "\"",
@@ -55,23 +65,23 @@
                 }
             ]
         },
-        "list":{
+        "list": {
             "name": "meta.parameterlist.neoscript",
             "begin": "\\[",
             "end": "\\]",
             "beginCaptures": {
                 "0": {
-                    "name":"keyword.operator.neoscript"
+                    "name": "keyword.operator.neoscript"
                 }
             },
             "endCaptures": {
                 "0": {
-                    "name":"keyword.operator.neoscript"
+                    "name": "keyword.operator.neoscript"
                 }
             },
-            "patterns":[
+            "patterns": [
                 {
-                    "include":"#parameter"
+                    "include": "#parameter"
                 }
             ]
         },
@@ -79,11 +89,11 @@
             "name": "meta.assignment.neoscript",
             "match": "([\\w_\\.\\$\\#]+)\\s*(\\=)",
             "captures": {
-                "1":{
-                    "name":"entity.name.tag.neoscript"
+                "1": {
+                    "name": "entity.name.tag.neoscript"
                 },
-                "2":{
-                    "name":"keyword.operator.neoscript"
+                "2": {
+                    "name": "keyword.operator.neoscript"
                 }
             }
         },
@@ -92,23 +102,26 @@
             "begin": "\\(",
             "end": "\\)",
             "beginCaptures": {
-                "0":{
-                    "name":"keyword.operator.neoscript"
+                "0": {
+                    "name": "keyword.operator.neoscript"
                 }
             },
             "endCaptures": {
-                "0":{
-                    "name":"keyword.operator.neoscript"
+                "0": {
+                    "name": "keyword.operator.neoscript"
                 }
             },
             "patterns": [
-                { "include": "#assignment" },
-                { "include": "#parameter" }
-                
+                {
+                    "include": "#assignment"
+                },
+                {
+                    "include": "#parameter"
+                }
             ]
         },
         "parameter": {
-            "patterns":[
+            "patterns": [
                 {
                     "include": "#doublequotestring"
                 },
@@ -128,76 +141,128 @@
                 }
             ]
         },
-        "command":{
-            "begin":"([\\w\\.\\$\\#]+)",
-            "end": "\\{|\\;",
+        "import": {
+            "match": "(import)([ \\t\\n\"\\'.\\w]+)(;)",
+            "captures": {
+                "1": {
+                    "name": "keyword.control.neoscript"
+                },
+                "2": {
+                    "name": "string.unquoted.neoscript"
+                },
+                "3": {
+                    "name": "keyword.operator.neoscript"
+                }
+            }
+        },
+        "template": {
+            "begin": "(using|template)(.*)(\\<)",
+            "end": "(\\>)",
             "beginCaptures": {
                 "1": {
-                    "name":"entity.name.function.command.neoscript"
+                    "name": "keyword.control.neoscript"
+                },
+                "2": {
+                    "name": "variable.parameter.neoscript"
+                },
+                "3": {
+                    "name": "keyword.operator.neoscript"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "keyword.operator.neoscript"
                 }
             },
             "patterns": [
                 {
-                    "include":"#parameter"
+                    "include": "#parameter"
                 }
             ]
         },
-        "block":{
-            "begin":"\\{",
-            "end":"\\}",
+        "command": {
+            "begin": "([\\w\\.\\$\\#]+)",
+            "end": "\\{|\\;",
+            "beginCaptures": {
+                "1": {
+                    "name": "entity.name.function.command.neoscript"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#parameter"
+                }
+            ]
+        },
+        "block": {
+            "begin": "\\{",
+            "end": "\\}",
             "beginCaptures": {
                 "0": {
-                    "name":"keyword.operator.neoscript"
+                    "name": "keyword.operator.neoscript"
                 }
             },
             "endCaptures": {
                 "0": {
-                    "name":"keyword.operator.neoscript"
+                    "name": "keyword.operator.neoscript"
                 }
             },
             "patterns": [
                 {
-                    "include":"#command"
+                    "include": "#template"
                 },
                 {
-                    "include":"$self"
+                    "include": "#command"
+                },
+                {
+                    "include": "$self"
                 }
             ]
         },
         "commands": {
             "patterns": [
                 {
-                    "include":"#block"
+                    "include": "#import"
                 },
                 {
-                    "include":"#command"
+                    "include": "#template"
+                },
+                {
+                    "include": "#block"
+                },
+                {
+                    "include": "#command"
                 }
             ]
         },
-		"textRegion" : {
+        "textRegion": {
             "name": "markup.text.neoscript",
             "begin": "(^\\{\\{)?\\s*(text):([^\\}]*)\\}\\}",
-            "end": "(?=^\\{\\{)",
+            "end": "^\\{\\{",
             "beginCaptures": {
                 "2": {
                     "name": "keyword.control.neoscript"
                 },
-                "3":{
+                "3": {
                     "name": "entity.name.section.neoscript"
                 }
             },
             "patterns": [
+                {
+                    "name": "constant.character.escape.neoscript",
+                    "match": "\\."
+                }
             ]
         },
         "codeRegion": {
             "name": "markup.code.neoscript",
             "begin": "(^\\{\\{)?\\s*(code):([^\\}]*)\\}\\}",
-            "end": "(?=^\\{\\{)",
+            "end": "^\\{\\{",
             "beginCaptures": {
                 "2": {
                     "name": "keyword.control.neoscript"
                 },
-                "3":{
+                "3": {
                     "name": "entity.name.section.neoscript"
                 }
             },
@@ -210,16 +275,19 @@
                 }
             ]
         },
-        "general":{
-            "patterns":[
+        "general": {
+            "patterns": [
                 {
-                    "include":"#textRegion"
+                    "include": "#textRegion"
                 },
                 {
-                    "include":"#codeRegion"
+                    "include": "#codeRegion"
                 },
                 {
                     "include": "#comment"
+                },
+                {
+                    "include": "#keywords"
                 },
                 {
                     "include": "#commands"
@@ -229,7 +297,7 @@
     },
     "patterns": [
         {
-            "include":"#general"
+            "include": "#general"
         }
     ]
 }
