@@ -1,0 +1,50 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "scopeName": "source.sfx",
+    "name": "sfx",
+    "fileTypes": [ ".sfx" ],
+    "repository": {
+        "hlslRegion" : {
+            "name": "markup.hlsl.sfx",
+            "begin": "^\\{\\{?\\s*(hlsl):([\\w\\W]*)\\}\\}",
+            "end": "(?=^\\{\\{)",
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.control.sfx"
+                },
+                "2":{
+                    "name": "entity.name.section.sfx"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.hlsl"
+                }
+            ]
+        },
+        "glslRegion" : {
+            "name": "markup.glsl.neoscript",
+            "begin": "(^\\{\\{)?\\s*(glsl):([\\w\\W]*)\\}\\}",
+            "end": "(?=^\\{\\{)",
+            "beginCaptures": {
+                "2": {
+                    "name": "keyword.control.sfx"
+                },
+                "3":{
+                    "name": "entity.name.section.sfx"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.glsl"
+                }
+            ]
+        }
+    },
+    "patterns":[
+        {"include": "#hlslRegion"},
+        {"include": "#glslRegion"},
+        {"include": "source.neoscript"}
+    ]
+}
+
