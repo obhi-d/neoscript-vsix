@@ -60,9 +60,7 @@
     <Content Include="Grammars\glsl.tmLanguage">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Grammars\hlsl.tmLanguage">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
+    <None Include="Grammars\hlsl.tmLanguage.json" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
